@@ -7,9 +7,14 @@ class SpindlerBattery(Battery):
         self.current_date = current_date
         self.last_service_date = last_service_date
 
-    def needs_service(self):
-        date_which_battery_should_be_serviced_by = add_years_to_date(self.last_service_date, 2)
-        if date_which_battery_should_be_serviced_by < self.current_date:
-            return True
-        else:
-            return False
+# Assuming this is part of your existing test class
+class TestSpindlerBattery(unittest.TestCase):
+    def test_battery_should_be_serviced_after_three_years(self):
+        today = datetime.today().date()
+        last_service_date = today.replace(year=today.year - 3)
+        current_mileage = 0
+        last_service_mileage = 0
+
+        car = Spindler(last_service_date, current_mileage, last_service_mileage)
+        self.assertTrue(car.needs_service())
+
